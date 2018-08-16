@@ -6,3 +6,4 @@
   sys模块：主要实现shiro权限的控制。
   core模块：核心资源模块。
   activities模块：实现工作流。
+超级管理员：账号：zsk     密码：zxspk
