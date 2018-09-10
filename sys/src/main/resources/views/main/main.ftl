@@ -4,13 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>脚手架</title>
+  <title>snow后台管理系统</title>
   <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/layui/css/layui.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/font-awesome/css/font-awesome.min.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/app.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/themes/default.css" media="all" id="skin" kit-skin />
   <style>
-    <#--前端无聊美化ing-->
     .layui-footer{background-color: #2F4056;}
     .layui-side-scroll{border-right: 3px solid #009688;}
   </style>
@@ -19,13 +18,12 @@
 <body class="kit-theme">
 <div class="layui-layout layui-layout-admin kit-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">脚手架</div>
+    <div class="layui-logo">snow后台管理系统</div>
     <div class="layui-logo kit-logo-mobile"></div>
     <div class="layui-hide-xs">
     <ul class="layui-nav layui-layout-left kit-nav">
       <li class="layui-nav-item"><a href="javascript:s();">会员管理</a></li>
         <li class="layui-nav-item"><a href="javascript:" kit-target data-options="{url:'/article/articleList',icon:'&#xe658;',title:'文章管理',id:'966'}">文章管理</a></li>
-      <#--<li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i> 捐赠我</a></li>-->
       <li class="layui-nav-item">
         <a href="javascript:">其它系统</a>
         <dl class="layui-nav-child">
@@ -93,14 +91,14 @@
   </#if>
 </#macro>
 <@tree data=menu start="start" end="end"/>
-  <div class="layui-body" <#--style="border:1px solid red;padding-bottom:0;"--> id="container" style="height: 91%">
+  <div class="layui-body" id="container" style="height: 91%">
     <!-- 内容主体区域 -->
     <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
   </div>
 
   <div class="layui-footer">
   <!-- 底部固定区域 -->
-  2017 &copy;
+  2018 &copy;
    一款快速开发脚手架
 </div>
 </div>

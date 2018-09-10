@@ -1,6 +1,4 @@
-package com.len.controller;
-
-import java.io.UnsupportedEncodingException;
+package cn.zsk.sys.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;

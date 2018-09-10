@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 spring:
   devtools:
       restart:
@@ -34,7 +34,7 @@ spring:
       url: http://localhost:8082
 
 mybatis:
-    type-aliases-package: cn.zsk.*.entity
+    type-aliases-package: cn.zsk.sys.entity,cn.zsk.snow.manage.entity
     mapper-locations: classpath*:mapper/*.xml
     check-config-location: true
 
@@ -65,3 +65,11 @@ logging:
     cn.zsk.*.mapper: debug
 
 dataType: mysql
+
+
+wechat:
+  mp:
+    appId: wxecb835c6042d2bd1
+    secret: b9e9e8299885ca1192216b43070b14dc
+    token: dolphin2018
+    aesKey: X7GFhfjC05dGzRCXsZrWMbfkpuK8LJHrtzlCqmH8Sra
