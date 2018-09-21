@@ -1,0 +1,540 @@
+/*Paging style 分页样式*/
+
+
+/*ManualDataInput.html come*/
+
+.input_list {
+	margin: .5rem .8rem;
+	border: 1px solid #E3E3E3;
+	border-radius: 10px;
+	height: 2rem;
+	line-height: 2rem;
+}
+
+
+/*ManualDataInput.html end*/
+
+
+/*DataList_img.html come*/
+
+
+/*腰部数据*/
+
+hr.hrstyle {
+	width: 31%;
+	border: .6px solid #ccc;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.scaleplate {
+	width: 100%;
+	height: 8rem;
+	background: #47A1DD;
+}
+
+.scaleplate>.data {
+	width: 100%;
+	height: 21%;
+	color: #Fff;
+	text-align: center;
+	font-size: .6rem;
+}
+
+.scaleplate>.data>span {
+	display: inline-block;
+	width: 35%;
+	vertical-align: baseline;
+}
+
+.scaleplate>.waistline_number {
+	width: 100%;
+	height: 25%;
+	line-height: 50%;
+	color: #fff;
+	text-align: center;
+	font-size: 3rem;
+}
+
+.scaleplate>.waistline_arrows {
+	width: 100%;
+	line-height: 20%;
+	text-align: center;
+}
+
+.scaleplate>.waistline_arrows>img {
+	width: 1.5rem;
+}
+
+
+/*标尺*/
+
+.scaleplate>.waistline_data {
+	border-top: 1px solid #FFF;
+	width: 90%;
+	height: 2rem;
+	margin: 0 auto;
+	background: url(../img/ruler_weight.png) repeat-x;
+}
+
+.scaleplate>.waistline_datalist {
+	width: 90%;
+	margin: 0 auto;
+	height: 1rem;
+	margin-top: -1rem;
+}
+
+.scaleplate>.waistline_datalist ul {
+	float: left;
+	color: #fff;
+	width: 100%;
+}
+
+.scaleplate>.waistline_datalist li {
+	float: left;
+	width: 19%;
+}
+
+.scaleplate>.waistline_datalist li:last-child {
+	width: 0;
+}
+
+
+/*体重数据*/
+
+#weightlist {
+	width: 100%;
+	height: 14rem;
+}
+
+
+/*BMI颜色分类*/
+
+.BMI_text {
+	width: 100%;
+	height: 2rem;
+	line-height: 2rem;
+}
+
+.BMI_text1 {
+	margin-left: .5rem;
+	font-size: .8rem;
+	color: #7A7A7A;
+}
+
+.BMI_text2 {
+	margin-left: .5rem;
+	font-size: 1.5rem;
+	color: #5BB7A5;
+	font-weight: bold;
+}
+
+.BMI_number ul {
+	float: left;
+	width: 100%;
+}
+
+.BMI_number ul li {
+	float: left;
+	width: 19%;
+}
+
+.BMI_number ul li:last-child {
+	width: 0;
+	margin-left: -.5rem;
+}
+
+
+/*手动输入列表*/
+
+.inputlist ul {
+	width: 90%;
+	margin: 3rem auto;
+}
+
+.inputlist ul li {
+	display: inline-block;
+	width: 100%;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin: .3rem 0;
+}
+
+.inputlist ul li label:first-child {
+	padding-left: .5rem;
+	display: inline-block;
+	width: 35%;
+	color: #666;
+}
+
+.inputlist ul li label:nth-child(2) {
+	text-align: right;
+	display: inline-block;
+	padding-left: 1rem;
+	width: 50%;
+}
+
+.inputlist ul li input {
+	text-align: right;
+	border: none;
+	outline: none;
+}
+
+.inputlist ul li textarea {
+	border: none;
+	outline: none;
+	padding-left: .3rem;
+	width: 90%;
+	height: auto;
+}
+
+
+/*保存按钮样式*/
+
+.inputlist ul a {
+	margin-top: 1rem;
+	width: 60%;
+	height: 2rem;
+	line-height: 2rem;
+}
+
+
+/*DataList_img.html end*/
+
+
+/*WaistlineChart.html come*/
+
+#DataBar {
+	width: 100%;
+	height: 20rem;
+}
+
+.Datatitle {
+	margin: .5rem auto 0;
+	padding: .5rem 0;
+	width: 90%;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	text-align: center;
+	border-bottom: 2px solid #C4C4C4;
+}
+
+.Datatitle>.Titlestyle {
+	margin-left: .5rem;
+	font-size: .8rem;
+	display: inline-block;
+	width: 6rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	background: #D4D4D4;
+	color: #FFF;
+	text-align: center;
+	border-radius: 6px;
+}
+
+.Datatitle>.TitlestyleActive {
+	margin-left: .5rem;
+	font-size: .8rem;
+	display: inline-block;
+	width: 6rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	background: #48A1DD;
+	color: #FFF;
+	text-align: center;
+	border-radius: 6px;
+}
+
+
+/*WaistlineChart.html end*/
+
+
+/*WaistlineCombine.html come*/
+
+.Combineimg {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.Combineimg ul {
+	padding-bottom: 1rem;
+	border-bottom: 2px solid #C4C4C4;
+}
+
+.Combineimg ul li {
+	text-align: center;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 8rem;
+}
+
+.Combineimg ul li img {
+	max-width: 10rem;
+}
+
+.Combineimg ul li#diameter img {
+	position: absolute;
+	top:0;
+	left: 20%;
+}
+.Combineimg ul li#positivediameter img {
+	position: absolute;
+	top: 0;
+	left: 20%;
+}
+
+.Combineimg ul li#sidediameter img {
+	position: absolute;
+	top: 0;
+	left: 20%;
+}
+
+.Combineimg p {
+	color: #48A1DD;
+	font-weight: bold;
+	font-size: .8rem;
+	height: 2rem;
+	line-height: 2rem;
+	text-indent: .5rem;
+}
+
+.Combineimg ol {
+	height: 2rem;
+	display: flex;
+}
+
+.Combineimg ol li {
+	color: #999;
+	text-align: center;
+	float: left;
+	flex: 1;
+}
+
+
+/*WaistlineCombine.html end*/
+
+
+/*WaistlineContrast.html end*/
+
+.Comparimg {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.Comparimg ul {
+	margin-top: .5rem;
+	padding-bottom: 1rem;
+	border-bottom: 2px solid #C4C4C4;
+	display: flex;
+}
+
+.Comparimg ul li {
+	flex: 1;
+}
+
+.Comparimg p {
+	color: #48A1DD;
+	font-weight: bold;
+	font-size: .8rem;
+	height: 2rem;
+	line-height: 2rem;
+	text-indent: .5rem;
+}
+
+.Comparimg ol {
+	display: flex;
+}
+
+.Comparimg ol li {
+	color: #999;
+	text-align: center;
+	float: left;
+	flex: 1;
+}
+
+
+/*WaistlineContrast.html end*/
+
+
+/*ManualDataInput.html come*/
+
+.Manualinput dl {
+	width: 90%;
+	margin: 0 auto;
+	color: #999;
+}
+
+.Manualinput dl dd {
+	width: 100%;
+	height: 1.3rem;
+	border: 1px solid #C4C4C4;
+	border-radius: 6px;
+	margin-top: .5rem;
+}
+
+.Manualinput dl dd.inputtit {
+	part: absolute;
+	left: 0;
+}
+
+
+/*ManualDataInput.html end*/
+
+
+/*Register.html come 个人信息注册*/
+
+.Register_tit {
+	color: #4BA1DB;
+	padding: 10px 15px;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.Register_textsty {
+	color: #999;
+}
+
+
+/*Register.html end*/
+
+
+/*PersonalData.html come*/
+
+.part_select h3 {
+	margin-top: .5rem;
+	color: #D9D9D9;
+	text-align: center;
+}
+
+.part_list {
+	width: 90%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.part_list ul {
+	width: 100%;
+}
+
+.part_list li {
+	float: left;
+	width: 40%;
+	margin-left: 8%;
+	text-align: center;
+}
+
+.part_list li p {
+	height: 1.5rem;
+	line-height: 1.5rem;
+}
+
+.part_list button {
+	width: 70%;
+	height: 2rem;
+}
+
+
+/*PersonalData.html end*/
+
+
+/*DataComparison.html come*/
+
+.content {
+	width: 100%;
+	height: 100%;
+	background: #f7f7fa;
+	position: absolute;
+	margin-top: 50px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+#listwrap {
+	height: 107.5%;
+	background: #F3F3F3;
+	overflow: auto;
+	z-index: 1;
+}
+
+#listwrap ul li {
+	margin: .5rem 0;
+	background: #fff;
+	padding: 10px 8px;
+}
+
+#listwrap ul button#compare {
+	width: 30%;
+	height: 1.6rem;
+	font-size: .7rem;
+	position: fixed;
+	bottom:10%;
+	right: 19%;
+	z-index: 999;
+}
+
+#listwrap ul button#threedimenobj {
+	width: 30%;
+	height: 1.6rem;
+	font-size: .7rem;
+	position: fixed;
+	bottom:10%;
+	left: 19%;
+	z-index: 999;
+}
+
+#listwrap ul li .p1 {
+	color: #999;
+	height: 1rem;
+	line-height: 1rem;
+	font-size: .6rem;
+}
+
+#listwrap ul li .p2 {
+	width: 85%;
+	height: 2rem;
+	line-height: 2rem;
+	display: inline-block;
+}
+
+#listwrap ul li .p2 p span:first-child {
+	text-align: center;
+	flex: 1.4;
+}
+
+#listwrap ul li .p2 p span:nth-child(2) {
+	text-align: center;
+	flex: 1.3;
+}
+
+#listwrap ul li .p2 p {
+	width: 100%;
+	display: flex;
+}
+#listwrap ul li .p2 p span {
+	text-align: center;
+	flex: 1.3;
+	font-size: .6rem;
+}
+
+#listwrap ul li label{
+	display: inline-block;
+	padding: 5px;
+}
+
+@media screen and (max-width:374px) {
+	.datacompar ul li .p2 span {
+		text-align: center;
+		flex: 1;
+		font-size: .5rem;
+	}
+}
+
+.datacompar ul li .p2 span:last-child {
+	flex: .5;
+}
+
+
+/*DataComparison.html end*/

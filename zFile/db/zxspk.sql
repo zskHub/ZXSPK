@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 10/09/2018 17:55:02
+ Date: 21/09/2018 18:38:38
 */
 
 SET NAMES utf8mb4;
@@ -830,7 +830,7 @@ CREATE TABLE `sys_log`  (
   `param` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1372 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1375 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_log
@@ -1002,6 +1002,9 @@ INSERT INTO `sys_log` VALUES (1368, 'zsk', '0:0:0:0:0:0:0:1', 'DEL', '删除菜�
 INSERT INTO `sys_log` VALUES (1369, 'zsk', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"2619a672e53811e7b983201a068c6482\",\"remark\":\"管理员\",\"roleName\":\"admin\"}][参数2:[\"5776428a6159414181243158d4b89bfd\",\"f411305056f64fd799606a0ef3fce987\",\"cfda8029dfb311e7b555201a068c6482\",\"3873ccc2dfda11e7b555201a068c6482\",\"18bf8d5df09511e78a57201a068c6482\",\"8a6c8bfa7f804eac810c5790cad9a62a\",\"cfe54921dfb311e7b555201a068c6482\",\"433089a6eb0111e782d5201a068c6482\",\"cfe54921dfb311e7b555201a068c6483\",\"e3b11497eb9e11e7928d201a068c6482\",\"f23f6a6bf09511e78a57201a068c6482\",\"cff61424dfb311e7b555201a068c6482\",\"0e6c8d4cf09511e78a57201a068c6482\",\"2b56410cf09411e78a57201a068c6482\",\"88b8e5d1f38911e7aca0201a068c6482\",\"ff015ea5f09411e78a57201a068c6482\",\"c862b49ba6e04295a9e8227d3b76a9f1\",\"20482c4c000641cf805f91d6b99092d4\",\"75af1758859744a3b70c4e2905831d42\",\"f464c82d7627478ba31845e000111b3d\",\"fa19809523384469b18044ea6ab0b113\",\"e06da471f90311e780aa201a068c6482\",\"28661300f9d411e7a009201a068c6482\",\"4d603831fe9b11e7b472201a068c6482\",\"63da4415fc6211e7a781201a068c6482\",\"b7839f59fe8811e7b472201a068c6482\"]]', '2018-09-10 16:36:22');
 INSERT INTO `sys_log` VALUES (1370, 'zsk', '0:0:0:0:0:0:0:1', 'DEL', '删除菜单', '[参数1:\"6bd1e612778a426f92157104d5ed60b2\"]', '2018-09-10 16:36:30');
 INSERT INTO `sys_log` VALUES (1371, 'zsk', '0:0:0:0:0:0:0:1', 'ADD', '更新菜单', '[参数1:{\"children\":[],\"icon\":\"\",\"id\":\"f411305056f64fd799606a0ef3fce987\",\"name\":\"测试使用\",\"num\":0,\"orderNum\":2,\"permission\":\"test:nihao\",\"url\":\"snowTest/findTestView\"}]', '2018-09-10 17:08:36');
+INSERT INTO `sys_log` VALUES (1372, 'zsk', '0:0:0:0:0:0:0:1', 'UPDATE', '添加菜单', '[参数1:{\"children\":[],\"createBy\":\"31ac66522912498881c4c3c9f15fd73c\",\"createDate\":1537515612517,\"icon\":\"\",\"id\":\"fbd038ac637d4c7fa9ced87ab102e4dc\",\"menuType\":0,\"name\":\"服务号首页\",\"num\":0,\"orderNum\":1,\"pId\":\"5776428a6159414181243158d4b89bfd\",\"permission\":\"hlgzhindexbanner:show\",\"url\":\"/hlgzhindexbanner/findHlgzhindexbannerView\"}][参数2:', '2018-09-21 15:40:12');
+INSERT INTO `sys_log` VALUES (1373, 'zsk', '0:0:0:0:0:0:0:1', 'ATHOR', '更新角色', '[参数1:{\"id\":\"2619a672e53811e7b983201a068c6482\",\"remark\":\"管理员\",\"roleName\":\"admin\"}][参数2:[\"5776428a6159414181243158d4b89bfd\",\"f411305056f64fd799606a0ef3fce987\",\"fbd038ac637d4c7fa9ced87ab102e4dc\",\"cfda8029dfb311e7b555201a068c6482\",\"3873ccc2dfda11e7b555201a068c6482\",\"18bf8d5df09511e78a57201a068c6482\",\"8a6c8bfa7f804eac810c5790cad9a62a\",\"cfe54921dfb311e7b555201a068c6482\",\"433089a6eb0111e782d5201a068c6482\",\"cfe54921dfb311e7b555201a068c6483\",\"e3b11497eb9e11e7928d201a068c6482\",\"f23f6a6bf09511e78a57201a068c6482\",\"cff61424dfb311e7b555201a068c6482\",\"0e6c8d4cf09511e78a57201a068c6482\",\"2b56410cf09411e78a57201a068c6482\",\"88b8e5d1f38911e7aca0201a068c6482\",\"ff015ea5f09411e78a57201a068c6482\",\"c862b49ba6e04295a9e8227d3b76a9f1\",\"20482c4c000641cf805f91d6b99092d4\",\"75af1758859744a3b70c4e2905831d42\",\"f464c82d7627478ba31845e000111b3d\",\"fa19809523384469b18044ea6ab0b113\",\"e06da471f90311e780aa201a068c6482\",\"28661300f9d411e7a009201a068c6482\",\"4d603831fe9b11e7b472201a068c6482\",\"63da4415fc6211e7a781201a068c6482\",\"b7839f59fe8811e7b472201a068c6482\"]]', '2018-09-21 15:40:46');
+INSERT INTO `sys_log` VALUES (1374, 'zsk', '0:0:0:0:0:0:0:1', 'ADD', '更新菜单', '[参数1:{\"children\":[],\"icon\":\"\",\"id\":\"fbd038ac637d4c7fa9ced87ab102e4dc\",\"name\":\"服务号首页\",\"num\":0,\"orderNum\":1,\"permission\":\"hlgzhindexbanner:show\",\"url\":\"hlgzhindexbanner/findHlgzhindexbannerView\"}]', '2018-09-21 15:42:47');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1062,6 +1065,7 @@ INSERT INTO `sys_menu` VALUES ('f23f6a6bf09511e78a57201a068c6482', '修改密码
 INSERT INTO `sys_menu` VALUES ('f411305056f64fd799606a0ef3fce987', '测试使用', '5776428a6159414181243158d4b89bfd', 'snowTest/findTestView', 2, '', '32ea1a7673b445a68beac9dfc9683cbe', '2018-08-16 15:25:47', '31ac66522912498881c4c3c9f15fd73c', '2018-09-10 17:08:36', 'test:nihao', 0);
 INSERT INTO `sys_menu` VALUES ('f464c82d7627478ba31845e000111b3d', '系统日志', 'c862b49ba6e04295a9e8227d3b76a9f1', 'log/showLog', 1, '', '31ac66522912498881c4c3c9f15fd73c', '2018-08-27 15:29:56', NULL, NULL, 'log:show', 0);
 INSERT INTO `sys_menu` VALUES ('fa19809523384469b18044ea6ab0b113', '系统监控', 'c862b49ba6e04295a9e8227d3b76a9f1', 'druid/index.html', 3, '', '31ac66522912498881c4c3c9f15fd73c', '2018-08-27 15:38:59', NULL, NULL, 'druid:show', 0);
+INSERT INTO `sys_menu` VALUES ('fbd038ac637d4c7fa9ced87ab102e4dc', '服务号首页', '5776428a6159414181243158d4b89bfd', 'hlgzhindexbanner/findHlgzhindexbannerView', 1, '', '31ac66522912498881c4c3c9f15fd73c', '2018-09-21 15:40:12', '31ac66522912498881c4c3c9f15fd73c', '2018-09-21 15:42:47', 'hlgzhindexbanner:show', 0);
 INSERT INTO `sys_menu` VALUES ('ff015ea5f09411e78a57201a068c6482', '编辑', 'cff61424dfb311e7b555201a068c6482', NULL, 2, '', 'acfc0e9232f54732a5d9ffe9071bf572', '2018-01-03 22:47:18', NULL, NULL, 'role:update', 1);
 
 -- ----------------------------
@@ -1141,6 +1145,7 @@ INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'f23f6a6
 INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'f411305056f64fd799606a0ef3fce987');
 INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'f464c82d7627478ba31845e000111b3d');
 INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'fa19809523384469b18044ea6ab0b113');
+INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'fbd038ac637d4c7fa9ced87ab102e4dc');
 INSERT INTO `sys_role_menu` VALUES ('2619a672e53811e7b983201a068c6482', 'ff015ea5f09411e78a57201a068c6482');
 INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', '433089a6eb0111e782d5201a068c6482');
 INSERT INTO `sys_role_menu` VALUES ('a56219ffeb7d11e7928d201a068c6482', 'cfda8029dfb311e7b555201a068c6482');

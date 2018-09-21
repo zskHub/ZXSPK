@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dolphin.modules.business.dao.HlgzhIndexBannerDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.dolphin.modules.business.entity.HlgzhIndexBannerEntity" id="hlgzhMdBannerMap">
+        <result property="id" column="id"/>
+        <result property="url" column="url"/>
+		<result property="content" column="content"/>
+		<result property="title" column="title"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.dolphin.modules.business.entity.HlgzhIndexBannerEntity">
+		select * from hlgzh_index_banner where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.dolphin.modules.business.entity.HlgzhIndexBannerEntity">
+		select * from hlgzh_index_banner
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from hlgzh_index_banner
+	</select>
+	 
+	<insert id="save" parameterType="com.dolphin.modules.business.entity.HlgzhIndexBannerEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into hlgzh_index_banner
+		(
+			`url`,
+			`title`,
+			`content`
+		)
+		values
+		(
+			#{url},
+			#{title},
+			#{content}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.dolphin.modules.business.entity.HlgzhIndexBannerEntity">
+		update hlgzh_index_banner
+		<set>
+			<if test="url != null">`url` = #{url},</if>
+			<if test="title != null">`title` = #{title},</if>
+			<if test="content != null">`content` = #{content}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from hlgzh_index_banner where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from hlgzh_index_banner where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
