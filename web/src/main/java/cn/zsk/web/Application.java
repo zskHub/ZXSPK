@@ -19,7 +19,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableTransactionManagement
 @ComponentScan({"cn.zsk", "activiti","len"})
-@MapperScan(basePackages = {"cn.zsk.sys.mapper","len.mapper","cn.zsk.snow.*.mapper","cn.zsk.wechat.business.mapper"})
+@MapperScan(basePackages = {"cn.zsk.sys.mapper","len.mapper","cn.zsk.snow.*.mapper"})
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
 })

@@ -28,7 +28,6 @@
         <module>web</module>
         <module>activities</module>
         <module>snow</module>
-        <module>wechat</module>
     </modules>
 
     <dependencies>
@@ -373,11 +372,6 @@
             <dependency>
                 <groupId>cn.zsk</groupId>
                 <artifactId>snow</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.zsk</groupId>
-                <artifactId>wechat</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
