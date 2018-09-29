@@ -26,10 +26,10 @@ public class ShiroUtil {
     }
 
     /*清空权限信息*/
-    public static void ClearAuth(){
+    public static void clearAuth(){
         RealmSecurityManager rsm = (RealmSecurityManager)SecurityUtils.getSecurityManager();
         LoginRealm realm = (LoginRealm)rsm.getRealms().iterator().next();
-        realm.clearCachedAuthorization(SecurityUtils.getSubject().getPrincipals());
+        realm.clearCachedAuthorization();
     }
 
 }

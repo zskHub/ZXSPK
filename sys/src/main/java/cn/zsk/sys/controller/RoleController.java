@@ -7,6 +7,7 @@ import cn.zsk.core.util.BeanUtil;
 import cn.zsk.core.util.JsonUtil;
 import cn.zsk.core.util.ReType;
 import cn.zsk.sys.core.annotation.Log;
+import cn.zsk.sys.core.shiro.ShiroUtil;
 import cn.zsk.sys.entity.SysRole;
 import cn.zsk.sys.entity.SysRoleMenu;
 import cn.zsk.sys.entity.SysRoleUser;
@@ -106,6 +107,11 @@ public class RoleController extends BaseController {
             j.setFlag(false);
             e.printStackTrace();
         }
+        /*
+         * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
+         * */
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return j;
     }
 
@@ -118,6 +124,11 @@ public class RoleController extends BaseController {
             model.addAttribute("menus", jsonArray.toJSONString());
         }
         model.addAttribute("detail", detail);
+        /*
+         * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
+         * */
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return "system/role/update-role";
     }
 
@@ -154,6 +165,8 @@ public class RoleController extends BaseController {
             jsonUtil.setMsg("修改失败");
             e.printStackTrace();
         }
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return jsonUtil;
     }
 
@@ -181,6 +194,11 @@ public class RoleController extends BaseController {
             j.setFlag(false);
             e.printStackTrace();
         }
+        /*
+         * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
+         * */
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return j;
     }
 

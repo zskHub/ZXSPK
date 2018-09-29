@@ -6,6 +6,7 @@ import cn.zsk.core.util.BeanUtil;
 import cn.zsk.core.util.JsonUtil;
 import cn.zsk.sys.core.annotation.Log;
 import cn.zsk.sys.core.annotation.Log.LOG_TYPE;
+import cn.zsk.sys.core.shiro.ShiroUtil;
 import cn.zsk.sys.entity.SysMenu;
 import cn.zsk.sys.entity.SysRoleMenu;
 import cn.zsk.sys.service.MenuService;
@@ -91,6 +92,11 @@ public class MenuController extends BaseController {
             e.printStackTrace();
             jsonUtil.setMsg("添加失败");
         }
+        /*
+        * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
+        * */
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return jsonUtil;
     }
 
@@ -115,6 +121,11 @@ public class MenuController extends BaseController {
         SysMenu oldMenu = menuService.selectByPrimaryKey(sysMenu.getId());
         BeanUtil.copyNotNullBean(sysMenu, oldMenu);
         menuService.updateByPrimaryKeySelective(oldMenu);
+        /*
+         * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
+         * */
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return JsonUtil.sucess("保存成功");
     }
 
@@ -150,6 +161,11 @@ public class MenuController extends BaseController {
         } else {
             json.setMsg("删除失败");
         }
+        /*
+         * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
+         * */
+        ShiroUtil shiroUtil = new ShiroUtil();
+        shiroUtil.clearAuth();
         return json;
 
     }
