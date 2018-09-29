@@ -3,6 +3,7 @@ package cn.zsk.sys.core.shiro;
 
 import cn.zsk.core.base.CurrentUser;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
@@ -22,6 +23,13 @@ public class ShiroUtil {
     }
     public static CurrentUser getCurrentUse(){
         return (CurrentUser) getSession().getAttribute("curentUser");
+    }
+
+    /*清空权限信息*/
+    public static void ClearAuth(){
+        RealmSecurityManager rsm = (RealmSecurityManager)SecurityUtils.getSecurityManager();
+        LoginRealm realm = (LoginRealm)rsm.getRealms().iterator().next();
+        realm.clearCachedAuthorization(SecurityUtils.getSubject().getPrincipals());
     }
 
 }

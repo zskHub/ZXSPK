@@ -9,6 +9,7 @@ import cn.zsk.sys.entity.SysUser;
 import cn.zsk.sys.service.*;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -100,23 +102,57 @@ public class LoginRealm extends AuthorizingRealm{
     UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
     String name=upToken.getUsername();
     String username=(String)authenticationToken.getPrincipal();
-    SysUser s=null;
+    SysUser user=null;
     try {
-      s = userService.login(username);
+      user = userService.login(username);
     }catch (Exception e){
       e.printStackTrace();
     }
-    if(s==null){
+    if(user==null){
       throw new UnknownAccountException("账户密码不正确");
     }else{
-      CurrentUser currentUser=new CurrentUser(s.getId(),s.getUsername(),s.getAge(),s.getEmail(),s.getPhoto(),s.getRealName());
+      CurrentUser currentUser=new CurrentUser(user.getId(),user.getUsername(),user.getAge(),user.getEmail(),user.getPhoto(),user.getRealName());
       Subject subject = ShiroUtil.getSubject();
       /**角色权限封装进去*/
-      //根据用户获取菜单
-      List<SysMenu> menuList=new ArrayList<>(new HashSet<>(menuService.getUserMenu(s.getId())));
-      JSONArray json=menuService.getMenuJsonByUser(menuList);
-      Session session= subject.getSession();
-      session.setAttribute("menu",json);
+
+      //超级管理员拥有所有的角色和权限
+      List<SysMenu> menuList = new ArrayList<>();
+      Session session = null;
+      if("31ac66522912498881c4c3c9f15fd73c".equals(user.getId())){
+        /*
+        * 超级管理员用户拥有所有的菜单项
+        * */
+        menuList = new ArrayList<>(new HashSet<>(menuService.getAllMenu()));
+        /*
+        * 由于跳过了通过用户id查询用户角色信息的步骤，所以这里手动添加一下该超级管理员的相关说明
+        * */
+        for(SysMenu sysMenu:menuList){
+          List<SysRole> sysRoleList = new ArrayList<>();
+          sysRoleList.stream().map(sysRole -> {
+              sysRole.setRemark("超级管理员");
+              sysRole.setRoleName("SuperAdmin");
+              return sysRole;
+          }).collect(Collectors.toList());
+          sysMenu.setRoleList(sysRoleList);
+        }
+        /*
+         * 处理查询出来的所有的菜单信息
+         * */
+        JSONArray json = menuService.getMenuJsonByUser(menuList);
+        session = subject.getSession();
+        session.setAttribute("menu",json);
+
+
+      }else {
+        //根据用户获取菜单
+        menuList=new ArrayList<>(new HashSet<>(menuService.getUserMenu(user.getId())));
+        JSONArray json=menuService.getMenuJsonByUser(menuList);
+        session= subject.getSession();
+        session.setAttribute("menu",json);
+      }
+
+
+
       CurrentMenu currentMenu=null;
       List<CurrentMenu> currentMenuList=new ArrayList<>();
       List<SysRole> roleList=new ArrayList<>();
@@ -137,6 +173,16 @@ public class LoginRealm extends AuthorizingRealm{
       session.setAttribute("curentUser",currentUser);
     }
     ByteSource byteSource=ByteSource.Util.bytes(username);
-    return new SimpleAuthenticationInfo(username,s.getPassword(), byteSource, getName());
+    return new SimpleAuthenticationInfo(username,user.getPassword(), byteSource, getName());
   }
+
+  /**
+   * 清理权限缓存方法
+   * @param principals
+   */
+  public void clearCachedAuthorization(PrincipalCollection principals){
+    //清空权限缓存
+    this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+  }
+
 }
