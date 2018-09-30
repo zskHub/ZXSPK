@@ -35,9 +35,22 @@ To change this template use File | Settings | File Templates.-->
           <div class="layui-input-block" style="width:190px;">
                 <select  disabled id="menuType" lay-verify="menuType"  lay-filter="menuType">
                     <option value=""></option>
-                    <option <#if (sysMenu.PId)??==null>selected</#if> value="2">一级菜单</option>
-                    <option <#if sysMenu.menuType='0'&&(sysMenu.PId)??>selected</#if> value="0">二级菜单</option>
+                    <option <#if (sysMenu.PId)??==null>selected</#if> value="2">目录</option>
+                    <option <#if sysMenu.menuType='0'&&(sysMenu.PId)??>selected</#if> value="0">菜单</option>
                     <option <#if sysMenu.menuType=='1'>selected</#if> value="1">按钮</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="menuCategoryId" class="layui-form-label">
+                <span class="x-red">*</span>菜单所属系统
+            </label>
+            <div class="layui-input-block" style="width:190px;">
+                <select name="menuCategoryId" id="menuCategoryId" lay-verify="menuCategoryId"  lay-filter="menuCategoryId">
+                    <option value=""></option>
+                    <option value="0">zsk</option>
+                    <option value="1">xp</option>
+                    <option value="2">test</option>
                 </select>
             </div>
         </div>
