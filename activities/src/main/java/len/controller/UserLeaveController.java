@@ -55,7 +55,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
+
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -446,7 +447,7 @@ public class UserLeaveController extends BaseController {
     public String getShineProcImage(HttpServletRequest request, HttpServletResponse resp, String processInstanceId) {
         JSONObject result = new JSONObject();
         JSONArray shineProImages = new JSONArray();
-        BASE64Encoder encoder  = new BASE64Encoder();
+        Base64 encoder  = new Base64();
         InputStream imageStream = generateStream(request,resp,processInstanceId,true);
         if(imageStream!=null)
         {
