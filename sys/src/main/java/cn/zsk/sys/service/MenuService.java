@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface MenuService extends BaseService<SysMenu,String> {
 
+  List<SysMenu> getMenuSuper();
+
   List<SysMenu> getMenuNotSuper();
 
   @Override
@@ -29,7 +31,15 @@ public interface MenuService extends BaseService<SysMenu,String> {
 
   List<SysMenu> getUserMenu(String id);
 
-  JSONArray getMenuJsonByUser(List<SysMenu> menuList);
+  /*
+   * 查询用户拥有的子系统数
+   * */
+  List<SysMenu> getUserSuperMenu(String id);
+
+
+  JSONArray getMenuJsonByUser(List<SysMenu> menuList,String superMenuName);
 
   List<SysMenu> getAllMenu();
+
+  List<SysMenu> getAllSuperMenu();
 }

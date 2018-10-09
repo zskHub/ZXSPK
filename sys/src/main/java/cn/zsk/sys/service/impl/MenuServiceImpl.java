@@ -8,7 +8,9 @@ import cn.zsk.sys.entity.SysRoleMenu;
 import cn.zsk.sys.mapper.SysMenuMapper;
 import cn.zsk.sys.mapper.SysRoleMenuMapper;
 import cn.zsk.sys.service.MenuService;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,11 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
     @Override
     public BaseMapper<SysMenu, String> getMappser() {
         return menuDao;
+    }
+
+    @Override
+    public List<SysMenu> getMenuSuper() {
+        return menuDao.getMenuSuper();
     }
 
     @Override
@@ -68,10 +75,13 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
 
     @Override
     public JSONArray getMenuJsonList() {
+        //查询所有的菜单项
         List<SysMenu> sysMenus = selectAll();
+        //获取没有pid的最上级菜单
         List<SysMenu> supers = sysMenus.stream().filter(sysMenu ->
                 StringUtils.isEmpty(sysMenu.getPId()))
                 .collect(Collectors.toList());
+
         sysMenus.removeAll(supers);
         supers.sort(Comparator.comparingInt(SysMenu::getOrderNum));
         JSONArray jsonArr = new JSONArray();
@@ -83,7 +93,7 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
     }
 
     @Override
-    public JSONArray getMenuJsonByUser(List<SysMenu> menuList) {
+    public JSONArray getMenuJsonByUser(List<SysMenu> menuList,String superMenuName) {
         JSONArray jsonArr = new JSONArray();
         Collections.sort(menuList, (o1, o2) -> {
             if (o1.getOrderNum() == null || o2.getOrderNum() == null) {
@@ -105,12 +115,31 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
                 pNum += 1000;
             }
         }
+        if(jsonArr.size() != 0){
+            /*
+            * 判断要加载的子系统内容，如果子系统为空默认加载该用户拥有的第一个子系统。
+            * 判断方法：加载该用户拥有的所有的菜单，然后通过传过来的子系统的名称（superMenuName），进行筛选，获取该子系统下的菜单项。
+            *
+            * */
+            if(superMenuName != null){
+                List<SysMenu> sysMenuList = JSONObject.parseArray(jsonArr.toJSONString(),SysMenu.class);
+                List<SysMenu> sysMenuList1 = sysMenuList.stream().filter(sysMenu -> superMenuName.equals(sysMenu.getName())).collect(Collectors.toList());
+                jsonArr = JSONArray.parseArray(JSON.toJSONString(sysMenuList1));
+                JSONObject jo = jsonArr.getJSONObject(0);
+                jsonArr = (JSONArray) jo.get("children");
+            }else {
+                JSONObject jo = jsonArr.getJSONObject(0);
+                jsonArr = (JSONArray) jo.get("children");
+            }
+
+        }
         return jsonArr;
     }
 
     public SysMenu getChilds(SysMenu menu, int pNum, int num, List<SysMenu> menuList) {
         for (SysMenu menus : menuList) {
-            if (menu.getId().equals(menus.getPId()) && menus.getMenuType() == 0) {
+            //这里根据pid匹配，并且排除按钮和子系统选择项
+            if (menu.getId().equals(menus.getPId()) && menus.getMenuType() != 2 && menus.getMenuType() != 3) {
                 ++num;
                 SysMenu m = getChilds(menus, pNum, num, menuList);
                 m.setNum(pNum + num);
@@ -150,6 +179,11 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
         return menuDao.getUserMenu(id);
     }
 
+    @Override
+    public List<SysMenu> getUserSuperMenu(String id) {
+        return menuDao.getUserSuperMenu(id);
+    }
+
     public TreeUtil getChildByTree(SysMenu sysMenu, List<SysMenu> sysMenus, int layer, String pId, String roleId) {
         layer++;
         List<SysMenu> childSysMenu = sysMenus.stream().filter(s ->
@@ -179,5 +213,10 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
     @Override
     public List<SysMenu> getAllMenu() {
         return menuDao.getAllMenu();
+    }
+
+    @Override
+    public List<SysMenu> getAllSuperMenu() {
+        return menuDao.getAllSuperMenu();
     }
 }

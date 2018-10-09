@@ -1,9 +1,3 @@
-<#--Created by IntelliJ IDEA.
-User: Administrator
-Date: 2018/3/5
-Time: 12:40
-To change this template use File | Settings | File Templates.-->
-
 <!DOCTYPE html>
 <html>
 
@@ -38,19 +32,7 @@ To change this template use File | Settings | File Templates.-->
                     <option <#if (sysMenu.PId)??==null>selected</#if> value="2">目录</option>
                     <option <#if sysMenu.menuType='0'&&(sysMenu.PId)??>selected</#if> value="0">菜单</option>
                     <option <#if sysMenu.menuType=='1'>selected</#if> value="1">按钮</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="menuCategoryId" class="layui-form-label">
-                <span class="x-red">*</span>菜单所属系统
-            </label>
-            <div class="layui-input-block" style="width:190px;">
-                <select name="menuCategoryId" id="menuCategoryId" lay-verify="menuCategoryId"  lay-filter="menuCategoryId">
-                    <option value=""></option>
-                    <option value="0">zsk</option>
-                    <option value="1">xp</option>
-                    <option value="2">test</option>
+                    <option <#if sysMenu.menuType=='3'>selected</#if> value="3">子系统</option>
                 </select>
             </div>
         </div>
@@ -175,7 +157,7 @@ To change this template use File | Settings | File Templates.-->
         }
     }
     ,pName:function(v){
-      if(type.val()!='2'&&v.trim()==''){
+      if(type.val()!='3'&&v.trim()==''){
         return '父菜单不能为空';
       }
     }
@@ -185,31 +167,33 @@ To change this template use File | Settings | File Templates.-->
           }
       }
       ,url:function(v){
-            if(type.val()=='1'){
+            if(type.val() != '1'){
                 $('#url').val('');
             }
-            if(type.val()=='0'&&v.trim()==''){
+            if(type.val() == '1'&&v.trim()==''){
                 return 'url不能为空';
             }
         }
         ,permission:function(v){
-            if((type.val()=='1'||type.val()=='0')&&v.trim()==''){
+            if((type.val() == '1'||type.val()=='2')&&v.trim()==''){
                 return '权限不能为空';
             }
         }
         ,orderNum: [/^[0-9]*[1-9][0-9]*$/, '请填写序号(正整数)']
     });
 
-  form.on('select(menuType)', function(data){
-      if(data.value=='2'){
-          $('#pId').val('');
-          dOs('pName',true);dOs('permission',true);dOs('url',false);
-      }else if(data.value=='1'){//按钮
-          dOs('url',true);dOs('pName',false);dOs('permission',false);
-      }else if(data.value=='0'){
-          dOs('url',false);dOs('pName',false);dOs('permission',false);
-      }
-  });
+      form.on('select(menuType)', function(data){
+          if(data.value=='0'){
+              dOs('pName',false);dOs('permission',true);dOs('url',false);
+          }else if(data.value=='2'){
+              dOs('url',true);dOs('pName',false);dOs('permission',false);
+          }else if(data.value=='1'){
+              dOs('url',false);dOs('pName',false);dOs('permission',false);
+          }else if(data.value=='3'){
+              $('#pId').val('');
+              dOs('url',false);dOs('pName',true);dOs('permission',true);
+          }
+      });
   /**
    * id :元素id
    * flag true:禁止输入，false 允许输入

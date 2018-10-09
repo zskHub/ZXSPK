@@ -7,6 +7,7 @@ import cn.zsk.sys.entity.SysMenu;
 import cn.zsk.sys.entity.SysRole;
 import cn.zsk.sys.entity.SysUser;
 import cn.zsk.sys.service.*;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -109,9 +110,12 @@ public class LoginRealm extends AuthorizingRealm{
         sysMenu.setRoleList(sysRoleList1);
       }
       //处理查询出来的所有的菜单信息
-      JSONArray json = menuService.getMenuJsonByUser(menuList);
+      JSONArray json = menuService.getMenuJsonByUser(menuList,null);
+      //查询该用户拥有的子系统，系统默认展示该用户拥有的子系统中的第一个子系统的菜单，其他的菜单项需要点击“其他系统”后再显示
+      JSONArray superMenu =  JSONArray.parseArray(JSON.toJSONString(menuService.getAllSuperMenu()));
       session = subject.getSession();
       session.setAttribute("menu",json);
+      session.setAttribute("superMenu",superMenu);
 
 
     }else{
@@ -127,12 +131,14 @@ public class LoginRealm extends AuthorizingRealm{
 
 
 
-      //用户授权方法中的：根据用户获取菜单
+      //用户授权方法中的：根据用户获取所有菜单
       menuList=new ArrayList<>(new HashSet<>(menuService.getUserMenu(user.getId())));
-      JSONArray json=menuService.getMenuJsonByUser(menuList);
+      JSONArray json=menuService.getMenuJsonByUser(menuList,null);
+      //查询该用户拥有的子系统，系统默认展示该用户拥有的子系统中的第一个子系统的菜单，其他的菜单项需要点击“其他系统”后再显示
+      JSONArray superMenu =  JSONArray.parseArray(JSON.toJSONString(menuService.getUserSuperMenu(user.getId())));
       session= subject.getSession();
       session.setAttribute("menu",json);
-
+      session.setAttribute("superMenu",superMenu);
 
     }
     return info;
@@ -189,17 +195,23 @@ public class LoginRealm extends AuthorizingRealm{
         /*
          * 处理查询出来的所有的菜单信息
          * */
-        JSONArray json = menuService.getMenuJsonByUser(menuList);
+        JSONArray json = menuService.getMenuJsonByUser(menuList,null);
+        JSONArray superMenu =  JSONArray.parseArray(JSON.toJSONString(menuService.getAllSuperMenu()));
         session = subject.getSession();
         session.setAttribute("menu",json);
+        session.setAttribute("superMenu",superMenu);
 
 
       }else {
+
         //根据用户获取菜单
         menuList=new ArrayList<>(new HashSet<>(menuService.getUserMenu(user.getId())));
-        JSONArray json=menuService.getMenuJsonByUser(menuList);
+        JSONArray json=menuService.getMenuJsonByUser(menuList,null);
+        //查询该用户拥有的子系统，系统默认展示该用户拥有的子系统中的第一个子系统的菜单，其他的菜单项需要点击“其他系统”后再显示
+        JSONArray superMenu =  JSONArray.parseArray(JSON.toJSONString(menuService.getUserSuperMenu(user.getId())));
         session= subject.getSession();
         session.setAttribute("menu",json);
+        session.setAttribute("superMenu",superMenu);
       }
 
 

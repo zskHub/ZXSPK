@@ -195,6 +195,13 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
      */
     @Override
     public ReType show(T t, int page, int limit) {
+        /*
+        * 只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页。
+        * 请不要在系统中配置多个分页插件(使用Spring时,mybatis-config.xml和Spring<bean>配置方式，请选择其中一种，不要同时配置多个分页插件)！
+        * 分页插件不支持带有for update语句的分页,对于带有for update的sql，会抛出运行时异常，对于这样的sql建议手动分页，毕竟这样的sql需要重视。
+        * 分页插件不支持嵌套结果映射
+        * 由于嵌套结果方式会导致结果集被折叠，因此分页查询的结果在折叠后总数会减少，所以无法保证分页结果数量正确。
+        * */
         List<T> tList = null;
         Page<T> tPage = PageHelper.startPage(page, limit);
         try {

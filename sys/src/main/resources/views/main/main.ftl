@@ -27,9 +27,10 @@
       <li class="layui-nav-item">
         <a href="javascript:">其它系统</a>
         <dl class="layui-nav-child">
-          <dd><a href="javascript:">邮件管理</a></dd>
-          <dd><a href="javascript:">消息管理</a></dd>
-          <dd><a href="javascript:">授权管理</a></dd>
+        <@tree1 data1=superMenu start="start" end="end"/>
+          <#--<dd><a href="javascript:">邮件管理</a></dd>-->
+          <#--<dd><a href="javascript:">消息管理</a></dd>-->
+          <#--<dd><a href="javascript:">授权管理</a></dd>-->
         </dl>
       </li>
     </ul>
@@ -61,6 +62,16 @@
       <li class="layui-nav-item"><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
     </ul>
   </div>
+<#macro tree1 data1 start end>
+  <#if (start=="start")>
+      <#list data1 as superMenu>
+        <dd><a href="${superMenu.url}?superMenuName=${superMenu.name}">${superMenu.name}</a></dd>
+      </#list>
+  </#if>
+  <#if (end=="end")>
+  </#if>
+</#macro>
+
 
 <#macro tree data start end>
   <#if (start=="start")>

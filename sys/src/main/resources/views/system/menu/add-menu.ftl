@@ -29,28 +29,16 @@ To change this template use File | Settings | File Templates.-->
     </div>
     <div style="margin-left:25%">
         <div class="layui-form-item">
-            <label for="menuCategoryId" class="layui-form-label">
-                <span class="x-red">*</span>菜单所属系统
-            </label>
-            <div class="layui-input-block" style="width:190px;">
-                <select name="menuCategoryId" id="menuCategoryId" lay-verify="menuCategoryId"  lay-filter="menuCategoryId">
-                    <option value=""></option>
-                    <option value="0">zsk</option>
-                    <option value="1">xp</option>
-                    <option value="2">test</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label for="menuType" class="layui-form-label">
                 <span class="x-red">*</span>类型
             </label>
             <div class="layui-input-block" style="width:190px;">
                 <select name="menuType" id="menuType" lay-verify="menuType"  lay-filter="menuType">
                     <option value=""></option>
-                    <option value="2">目录</option>
-                    <option value="0">菜单</option>
-                    <option value="1">按钮</option>
+                    <option value="0">目录</option>
+                    <option value="1">菜单</option>
+                    <option value="2">按钮</option>
+                    <option value="3">子系统</option>
                 </select>
             </div>
         </div>
@@ -173,44 +161,44 @@ To change this template use File | Settings | File Templates.-->
         }
     }
     ,pName:function(v){
-      if(type.val()!='2'&&v.trim()==''){
+      if(type.val()!='3'&&v.trim()==''){
         return '父菜单不能为空';
       }
     }
-    ,menuCategoryId:function(v){
-        if(v.trim()==''){
-            return '菜单所属系统不能为空';
-        }
-     }
       ,name:function(v){
           if(v.trim()==''){
               return '名称不能为空';
           }
       }
       ,url:function(v){
-            if(type.val()=='1'){
+            if(type.val() !='1'){
                 $('#url').val('');
             }
-            if(type.val()=='0'&&v.trim()==''){
+            if(type.val()=='1'&&v.trim()==''){
                 return 'url不能为空';
             }
         }
         ,permission:function(v){
-            if((type.val()=='1'||type.val()=='0')&&v.trim()==''){
+            if((type.val()=='1'||type.val()=='2')&&v.trim()==''){
                 return '权限不能为空';
             }
         }
         ,orderNum: [/^[0-9]*[1-9][0-9]*$/, '请填写序号(正整数)']
     });
 
+    /*
+    * 根据新增菜单的类型，判断需要填写的信息
+    * */
   form.on('select(menuType)', function(data){
-      if(data.value=='2'){
-          $('#pId').val('');
-          dOs('pName',true);dOs('permission',true);dOs('url',false);
-      }else if(data.value=='1'){//按钮
+      if(data.value=='0'){
+          dOs('pName',false);dOs('permission',true);dOs('url',false);
+      }else if(data.value=='2'){
           dOs('url',true);dOs('pName',false);dOs('permission',false);
-      }else if(data.value=='0'){
+      }else if(data.value=='1'){
           dOs('url',false);dOs('pName',false);dOs('permission',false);
+      }else if(data.value=='3'){
+          $('#pId').val('');
+          dOs('url',false);dOs('pName',true);dOs('permission',true);
       }
   });
   /**

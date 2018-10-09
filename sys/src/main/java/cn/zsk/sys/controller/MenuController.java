@@ -1,6 +1,7 @@
 package cn.zsk.sys.controller;
 
 import cn.zsk.core.base.BaseController;
+import cn.zsk.core.base.CurrentUser;
 import cn.zsk.core.exception.MyException;
 import cn.zsk.core.util.BeanUtil;
 import cn.zsk.core.util.JsonUtil;
@@ -11,10 +12,14 @@ import cn.zsk.sys.entity.SysMenu;
 import cn.zsk.sys.entity.SysRoleMenu;
 import cn.zsk.sys.service.MenuService;
 import cn.zsk.sys.service.RoleMenuService;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +27,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author zsk
@@ -38,6 +50,49 @@ public class MenuController extends BaseController {
 
     @Autowired
     private RoleMenuService roleMenuService;
+
+
+
+
+    /*
+    * 当点击“其他系统”选项中的其他系统时
+    *
+    * */
+    @GetMapping(value = "showMenuCategory")
+    public String showMenuCategory(String superMenuName){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        CurrentUser curentUser = (CurrentUser) request.getSession().getAttribute("curentUser");
+        Session session = null;
+        Subject subject = ShiroUtil.getSubject();
+        List<SysMenu> menuList = new ArrayList<>();
+        if("31ac66522912498881c4c3c9f15fd73c".equals(curentUser.getId())){
+            menuList = new ArrayList<>(new HashSet<>(menuService.getAllMenu()));
+            JSONArray json = menuService.getMenuJsonByUser(menuList,superMenuName);
+            List<SysMenu> superMenu = menuService.getAllSuperMenu();
+            session = subject.getSession();
+            session.setAttribute("menu",json);
+            session.setAttribute("superMenu",superMenu);
+        }else {
+            //用户授权方法中的：根据用户获取所有菜单
+            menuList=new ArrayList<>(new HashSet<>(menuService.getUserMenu(curentUser.getId())));
+            JSONArray json=menuService.getMenuJsonByUser(menuList,superMenuName);
+            List<SysMenu> sysMenuList = JSONObject.parseArray(json.toJSONString(),SysMenu.class);
+            System.out.println(sysMenuList.toString());
+            //查询该用户拥有的子系统，系统默认展示该用户拥有的子系统中的第一个子系统的菜单，其他的菜单项需要点击“其他系统”后再显示
+            JSONArray superMenu =  JSONArray.parseArray(JSON.toJSONString(menuService.getUserSuperMenu(curentUser.getId())));
+            session= subject.getSession();
+            session.setAttribute("menu",json);
+            session.setAttribute("superMenu",superMenu);
+        }
+
+        //防止页面加载部分js时链接中带有/menu
+        return "redirect:/main";
+    }
+    @GetMapping("/main")
+    public String main(){
+        return "main/main";
+    }
+
 
     /**
      * 展示tree
@@ -83,9 +138,6 @@ public class MenuController extends BaseController {
         }
 
         try {
-            if (sysMenu.getMenuType() == 2) {
-                sysMenu.setMenuType((byte) 0);
-            }
             menuService.insertSelective(sysMenu);
             jsonUtil.setMsg("添加成功");
         } catch (MyException e) {

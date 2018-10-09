@@ -64,13 +64,10 @@ public class SysMenu {
     private String permission;
 
     /**
-     * 0目录1菜单
+     * 0目录 1菜单 2按钮 3子系统
      */
     @Column(name = "menu_type")
     private Byte menuType;
-
-    @Column(name = "menu_category_id")
-    private Integer menuCategoryId;
 
     private int num;
 
