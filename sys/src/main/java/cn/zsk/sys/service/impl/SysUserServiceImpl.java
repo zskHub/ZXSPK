@@ -163,7 +163,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
     SysRoleUser sysRoleUser =new SysRoleUser();
     sysRoleUser.setUserId(id);
     List<SysRoleUser>  kList= selectByCondition(sysRoleUser);
-    System.out.println(kList.size());
     List<Checkbox> checkboxList=new ArrayList<>();
     Checkbox checkbox=null;
     for(SysRole sysRole:roleList){

@@ -28,6 +28,8 @@ public class SysUser {
 
     private Integer age;
 
+    private String phone;
+
     private String email;
 
     private String photo;

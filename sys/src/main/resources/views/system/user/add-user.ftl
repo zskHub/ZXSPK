@@ -98,16 +98,28 @@ To change this template use File | Settings | File Templates.-->
         </div>
       </div>
     </div>
-    <div>
-      <label for="email" class="layui-form-label">
-        <span class="x-red"></span>邮箱
-      </label>
-      <div class="layui-input-block">
-        <input type="email" id="email" style="width: 93%" name="email"  lay-verify="email"
-               autocomplete="off" class="layui-input">
-        <input id="photo" name="photo" type="hidden">
-      </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label for="email" class="layui-form-label">
+                <span class="x-red"></span>邮箱
+            </label>
+            <div class="layui-input-inline">
+                <input type="email" id="email"  name="email"  lay-verify="email"
+                       autocomplete="off" class="layui-input">
+                <input id="photo" name="photo" type="hidden">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red"></span>手机号
+            </label>
+            <div class="layui-input-inline">
+                <input type="phone" id="phone" name="phone"  lay-verify="phone"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
     </div>
+
       <div class="layui-form-item">
         <label class="layui-form-label">角色选择</label>
         <div class="layui-input-block">

@@ -135,8 +135,13 @@ public class UserController extends BaseController {
         return "system/user/update-user";
     }
 
+    /*
+    * 更新用户所有信息，
+    * 无法满足的更新情况：
+    * 用户拥有相应的角色，但是本次更新时不需要更新角色，角色信息传过来的为空，如果使用该方法会将该用户更新为无角色状态。
+    * */
     @ApiOperation(value = "/updateUser", httpMethod = "POST", notes = "更新用户")
-    @Log(desc = "更新用户", type = Log.LOG_TYPE.UPDATE)
+    @Log(desc = "更新用户（包括用户角色信息）", type = Log.LOG_TYPE.UPDATE)
     @PostMapping(value = "updateUser")
     @ResponseBody
     public JsonUtil updateUser(SysUser user, String role[]) {
@@ -163,6 +168,33 @@ public class UserController extends BaseController {
                     roleUserService.insert(sysRoleUser);
                 }
             }
+            jsonUtil.setFlag(true);
+            jsonUtil.setMsg("修改成功");
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        return jsonUtil;
+    }
+
+    /*
+    * 该方法只更新用户基本信息，不能更新用户拥有的角色信息
+    * */
+    @ApiOperation(value = "/updateUserNoRole", httpMethod = "POST", notes = "更新用户")
+    @Log(desc = "更新用户（不包括用户角色信息）", type = Log.LOG_TYPE.UPDATE)
+    @PostMapping(value = "updateUserNoRole")
+    @ResponseBody
+    public JsonUtil updateUserNoRole(SysUser user) {
+        JsonUtil jsonUtil = new JsonUtil();
+        jsonUtil.setFlag(false);
+        if (user == null) {
+            jsonUtil.setMsg("获取数据失败");
+            return jsonUtil;
+        }
+        try {
+            SysUser oldUser = userService.selectByPrimaryKey(user.getId());
+            BeanUtil.copyNotNullBean(user, oldUser);
+            userService.updateByPrimaryKeySelective(oldUser);
+
             jsonUtil.setFlag(true);
             jsonUtil.setMsg("修改成功");
         } catch (MyException e) {
@@ -214,7 +246,7 @@ public class UserController extends BaseController {
         newPwd = Md5Util.getMD5(newPwd, user.getUsername());
         pass = Md5Util.getMD5(pass, user.getUsername());
         if (!pass.equals(user.getPassword())) {
-            j.setMsg("密码不正确");
+            j.setMsg("原密码不正确");
             return j;
         }
         if (newPwd.equals(user.getPassword())) {

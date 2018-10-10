@@ -20,7 +20,7 @@
 <body class="login-bg">
 
 <div class="login">
-    <div class="message">脚手架</div>
+    <div class="message">ZSK</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" action="${re.contextPath}/login" class="layui-form" >

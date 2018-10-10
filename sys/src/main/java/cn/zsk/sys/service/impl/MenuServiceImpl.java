@@ -2,6 +2,7 @@ package cn.zsk.sys.service.impl;
 
 import cn.zsk.core.base.BaseMapper;
 import cn.zsk.core.base.impl.BaseServiceImpl;
+import cn.zsk.core.util.RandomCodeUtil;
 import cn.zsk.core.util.TreeUtil;
 import cn.zsk.sys.entity.SysMenu;
 import cn.zsk.sys.entity.SysRoleMenu;
@@ -107,12 +108,11 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
             }
             return -1;
         });
-        int pNum = 1000;
+
         for (SysMenu menu : menuList) {
             if (StringUtils.isEmpty(menu.getPId())) {
-                SysMenu sysMenu = getChilds(menu, pNum, 0, menuList);
+                SysMenu sysMenu = getChilds(menu,menuList);
                 jsonArr.add(sysMenu);
-                pNum += 1000;
             }
         }
         if(jsonArr.size() != 0){
@@ -136,13 +136,15 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
         return jsonArr;
     }
 
-    public SysMenu getChilds(SysMenu menu, int pNum, int num, List<SysMenu> menuList) {
+    public SysMenu getChilds(SysMenu menu, List<SysMenu> menuList) {
         for (SysMenu menus : menuList) {
             //这里根据pid匹配，并且排除按钮和子系统选择项
             if (menu.getId().equals(menus.getPId()) && menus.getMenuType() != 2 && menus.getMenuType() != 3) {
-                ++num;
-                SysMenu m = getChilds(menus, pNum, num, menuList);
-                m.setNum(pNum + num);
+
+                SysMenu m = getChilds(menus,  menuList);
+                //生成随机数作为选项卡每个面板的id
+                int tableId = Integer.valueOf(RandomCodeUtil.getRandNumber(5));
+                m.setNum(tableId);
                 menu.addChild(m);
             }
         }

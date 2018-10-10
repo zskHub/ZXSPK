@@ -29,6 +29,10 @@
     <div class="layui-inline">
       <input class="layui-input" height="20px" id="uname" autocomplete="off">
     </div>
+    手机号：
+      <div class="layui-inline">
+          <input class="layui-input" height="20px" id="phone" autocomplete="off">
+      </div>
     邮箱：
     <div class="layui-inline">
       <input class="layui-input" height="20px" id="email" autocomplete="off">
@@ -105,8 +109,9 @@
           sort: true,
           style: 'background-color: #009688; color: #fff;'
         }
-        , {field: 'age', title: '年龄', width: '17%', sort: true}
-        , {field: 'realName', title: '真实姓名', width: '20%'}
+        , {field: 'age', title: '年龄', width: '10%', sort: true}
+        , {field: 'realName', title: '真实姓名', width: '13%'}
+        , {field: 'phone', title: '手机号', width: '13%'}
         , {field: 'email', title: '邮箱', width: '13%'}
         , {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}
         , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
@@ -119,21 +124,24 @@
       select: function () {
         var uname = $('#uname').val();
         var email = $('#email').val();
-        console.info(uname);
+        var phone = $('#phone').val();
         table.reload('userList', {
           where: {
             username: uname,
-            email: email
+            email: email,
+            phone:phone
           }
         });
       },
       reload:function(){
         $('#uname').val('');
        $('#email').val('');
+       $('#phone').val('');
         table.reload('userList', {
           where: {
             username: null,
-            email: null
+            email: null,
+            phone:null
           }
         });
       },

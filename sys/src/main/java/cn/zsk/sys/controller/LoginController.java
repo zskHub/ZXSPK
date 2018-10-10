@@ -1,13 +1,11 @@
 package cn.zsk.sys.controller;
 
+import cn.zsk.core.util.Checkbox;
 import cn.zsk.sys.core.annotation.Log;
 import cn.zsk.sys.core.filter.VerifyCodeUtils;
 import cn.zsk.sys.core.shiro.ShiroUtil;
-import cn.zsk.sys.entity.SysMenu;
 import cn.zsk.sys.entity.SysUser;
-import cn.zsk.sys.service.MenuService;
 import cn.zsk.sys.service.SysUserService;
-import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -42,8 +40,6 @@ public class LoginController {
     @Autowired
     private SysUserService userService;
 
-    @Autowired
-    private MenuService menuService;
 
     @GetMapping(value = "")
     public String loginInit() {
@@ -117,38 +113,31 @@ public class LoginController {
         return "main/main";
     }
 
+    //查看基本资料
+    @GetMapping("/getBasicMsg")
+    public String getBasicMsg(String userId,Model model){
+        SysUser sysUser = userService.selectByPrimaryKey(userId);
+        List<Checkbox> checkboxList = userService.getUserRoleByJson(userId);
+        model.addAttribute("boxJson", checkboxList);
+        model.addAttribute("user",sysUser);
+
+        return "/main/basic_msg";
+    }
+    //安全设置
+    @GetMapping("/getSecuritySettings")
+    public String getSecuritySettings(String userId,Model model){
+        SysUser sysUser = userService.selectByPrimaryKey(userId);
+        model.addAttribute("user",sysUser);
+
+        return "/main/security_settings";
+    }
+
     @Log(desc = "用户退出平台")
     @GetMapping(value = "/logout")
     public String logout() {
         Subject sub = SecurityUtils.getSubject();
         sub.logout();
         return "/login";
-    }
-
-    /**
-     * 组装菜单json格式
-     * update by 17/12/13
-     *
-     * @return
-     */
-    public JSONArray getMenuJson() {
-        List<SysMenu> mList = menuService.getMenuNotSuper();
-        JSONArray jsonArr = new JSONArray();
-        for (SysMenu sysMenu : mList) {
-            SysMenu menu = getChild(sysMenu.getId());
-            jsonArr.add(menu);
-        }
-        return jsonArr;
-    }
-
-    public SysMenu getChild(String id) {
-        SysMenu sysMenu = menuService.selectByPrimaryKey(id);
-        List<SysMenu> mList = menuService.getMenuChildren(id);
-        for (SysMenu menu : mList) {
-            SysMenu m = getChild(menu.getId());
-            sysMenu.addChild(m);
-        }
-        return sysMenu;
     }
 
 
@@ -161,7 +150,7 @@ public class LoginController {
             response.setContentType("image/jpg");
 
             //生成随机字串
-            String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+            String verifyCode = VerifyCodeUtils.generateVerifyCode(5);
             log.info("verifyCode:{}",verifyCode);
             //存入会话session
             HttpSession session = request.getSession(true);
