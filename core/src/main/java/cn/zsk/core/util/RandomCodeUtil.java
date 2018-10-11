@@ -67,8 +67,8 @@ public class RandomCodeUtil {
          * @param sex 性别  0：女生，1：男生
          * @return
          */
-        public static String getRandomChinese(String sex){
-            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+        public static String getRandomChinese(String sex,SnowflakeIdUtil idWorker){
+            AtomicLong seed = new AtomicLong(idWorker.nextId());
             //随机获取姓
             int a = (int) Math.abs(firsname.length * Math.random());
             //产生1-3的随机数
@@ -97,8 +97,8 @@ public class RandomCodeUtil {
          * @param length 长度
          * @return String
          */
-        public static  String getRandNumberCode (int length)    {
-            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+        public static  String getRandNumberCode (int length,SnowflakeIdUtil idWorker)    {
+            AtomicLong seed = new AtomicLong(idWorker.nextId());
             Random random = new Random(seed.incrementAndGet());
             String result="";
             for(int i=0;i<length;i++){
@@ -110,11 +110,11 @@ public class RandomCodeUtil {
         /**
          * 生成指定长度的数字随机数,不能以0开头
          * @param length 长度
+         * @param idWorker 通过雪花算法计算的一个id值，作为随机数的基数
          * @return String
          */
-        public static  String getRandNumber (int length)    {
-
-            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+        public static  String getRandNumber (int length,SnowflakeIdUtil idWorker)    {
+            AtomicLong seed = new AtomicLong(idWorker.nextId());
             Random r = new Random(seed.incrementAndGet());
 
             //生成第一位非零随机数
@@ -137,8 +137,8 @@ public class RandomCodeUtil {
          * @param size 长度
          * @return String
          */
-        public static String getRandStrCode(int size) {
-            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+        public static String getRandStrCode(int size,SnowflakeIdUtil idWorker) {
+            AtomicLong seed = new AtomicLong(idWorker.nextId());
             Random r = new Random(seed.incrementAndGet());
             String temp = "ABCDEFGHJKLMNPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
             int length = temp.length();
@@ -156,8 +156,8 @@ public class RandomCodeUtil {
          * @param size 长度
          * @return 字符串
          */
-        public static String getRandEnglishCode(int size) {
-            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+        public static String getRandEnglishCode(int size,SnowflakeIdUtil idWorker) {
+            AtomicLong seed = new AtomicLong(idWorker.nextId());
             Random r = new Random(seed.incrementAndGet());
             String temp = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             int length = temp.length();

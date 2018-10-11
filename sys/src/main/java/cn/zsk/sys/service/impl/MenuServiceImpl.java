@@ -3,6 +3,7 @@ package cn.zsk.sys.service.impl;
 import cn.zsk.core.base.BaseMapper;
 import cn.zsk.core.base.impl.BaseServiceImpl;
 import cn.zsk.core.util.RandomCodeUtil;
+import cn.zsk.core.util.SnowflakeIdUtil;
 import cn.zsk.core.util.TreeUtil;
 import cn.zsk.sys.entity.SysMenu;
 import cn.zsk.sys.entity.SysRoleMenu;
@@ -109,9 +110,14 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
             return -1;
         });
 
+        //引进来雪花算法的工具类
+        int workerId = 0;
+        int datacenterId=0;
+        SnowflakeIdUtil idWorker = new SnowflakeIdUtil(workerId, datacenterId);
+
         for (SysMenu menu : menuList) {
             if (StringUtils.isEmpty(menu.getPId())) {
-                SysMenu sysMenu = getChilds(menu,menuList);
+                SysMenu sysMenu = getChilds(menu,menuList,idWorker);
                 jsonArr.add(sysMenu);
             }
         }
@@ -136,14 +142,25 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
         return jsonArr;
     }
 
-    public SysMenu getChilds(SysMenu menu, List<SysMenu> menuList) {
+    /*
+    *由于layerui选项卡中没有面板都需要有一个唯一的id作为标识。
+    *在生成随机数作为面板id的时候，这里采用了一下雪花算法生成一个id，将这个id作为Random函数的基数（其实这里完全没有必要这么麻烦，
+    * 可以直接用一个简单的random类，这里就是玩一下。）
+    *
+    * 同时这里声明一下，关于雪花算法的使用，这里可能会有错误。后期了解更多，继续修改。
+    *
+    *具体雪花算法，可以查看该类了解。
+    * workerId和datacenterId两个参数的范围是0-31
+    *
+    * */
+    public SysMenu getChilds(SysMenu menu, List<SysMenu> menuList,SnowflakeIdUtil idWorker) {
+
         for (SysMenu menus : menuList) {
             //这里根据pid匹配，并且排除按钮和子系统选择项
             if (menu.getId().equals(menus.getPId()) && menus.getMenuType() != 2 && menus.getMenuType() != 3) {
-
-                SysMenu m = getChilds(menus,  menuList);
                 //生成随机数作为选项卡每个面板的id
-                int tableId = Integer.valueOf(RandomCodeUtil.getRandNumber(5));
+                int tableId = Integer.valueOf(RandomCodeUtil.getRandNumber(5,idWorker));
+                SysMenu m = getChilds(menus,  menuList,idWorker);
                 m.setNum(tableId);
                 menu.addChild(m);
             }
@@ -156,7 +173,6 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
     public List<SysMenu> getMenuChildrenAll(String id) {
         return menuDao.getMenuChildrenAll(id);
     }
-
 
     @Override
     public JSONArray getTreeUtil(String roleId) {
