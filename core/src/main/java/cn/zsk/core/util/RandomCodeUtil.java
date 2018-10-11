@@ -1,6 +1,7 @@
 package cn.zsk.core.util;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author:zsk
@@ -67,10 +68,11 @@ public class RandomCodeUtil {
          * @return
          */
         public static String getRandomChinese(String sex){
+            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
             //随机获取姓
             int a = (int) Math.abs(firsname.length * Math.random());
             //产生1-3的随机数
-            int random = new Random().nextInt(3)+1 ;
+            int random = new Random(seed.incrementAndGet()).nextInt(3)+1 ;
             int i = 0 ;
             String lastName = "" ;//名
             if("0".equals(sex.trim())){
@@ -96,7 +98,8 @@ public class RandomCodeUtil {
          * @return String
          */
         public static  String getRandNumberCode (int length)    {
-            Random random = new Random();
+            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+            Random random = new Random(seed.incrementAndGet());
             String result="";
             for(int i=0;i<length;i++){
                 result+=random.nextInt(10);
@@ -111,11 +114,13 @@ public class RandomCodeUtil {
          */
         public static  String getRandNumber (int length)    {
 
-            //第一位随机数
+            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+            Random r = new Random(seed.incrementAndGet());
+
+            //生成第一位非零随机数
             String temp = "123456789";
             int len = temp.length();
             int p;
-            Random r = new Random();
             StringBuilder sb = new StringBuilder();
             p = r.nextInt(len);
             sb.append(temp.substring(p, p + 1));
@@ -133,10 +138,11 @@ public class RandomCodeUtil {
          * @return String
          */
         public static String getRandStrCode(int size) {
+            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+            Random r = new Random(seed.incrementAndGet());
             String temp = "ABCDEFGHJKLMNPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
             int length = temp.length();
             int p;
-            Random r = new Random();
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < size; i++) {
                 p = r.nextInt(length);
@@ -151,10 +157,11 @@ public class RandomCodeUtil {
          * @return 字符串
          */
         public static String getRandEnglishCode(int size) {
+            AtomicLong seed = new AtomicLong(System.currentTimeMillis());
+            Random r = new Random(seed.incrementAndGet());
             String temp = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             int length = temp.length();
             int p;
-            Random r = new Random();
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < size; i++) {
                 p = r.nextInt(length);
