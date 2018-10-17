@@ -55,7 +55,7 @@ public abstract class BaseController<T> {
 
     private static boolean isAjaxRequest(HttpServletRequest request) {
         String requestedWith = request.getHeader("x-requested-with");
-        return requestedWith != null && requestedWith.equalsIgnoreCase("XMLHttpRequest");
+        return requestedWith != null && "XMLHttpRequest".equalsIgnoreCase(requestedWith);
     }
 
 

@@ -6,7 +6,6 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -24,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.len.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.zsk.sys.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -33,8 +32,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Swagger接口列表")
                 .description("接口")
-                .termsOfServiceUrl("http://localhost:8081/swagger-ui.html")
-                .contact(new Contact("zxm", "http://www.lenosp.cn", ""))
+                .termsOfServiceUrl("http://localhost:8082/swagger-ui.html")
                 .version("1.1.0")
                 .build();
     }

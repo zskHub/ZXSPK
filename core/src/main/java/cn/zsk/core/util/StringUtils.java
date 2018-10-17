@@ -11,22 +11,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils extends org.apache.commons.lang.StringUtils {
+	private static final Pattern PATTERN = Pattern.compile("-?[0-9]+.?[0-9]*([Ee]{1}[0-9]+)?");
 
 	// 首字母转小写
 	public static String toLowerCaseFirstOne(String s) {
-		if (Character.isLowerCase(s.charAt(0)))
-			return s;
-		else
-			return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+		if (Character.isLowerCase(s.charAt(0))) {
+            return s;
+        } else {
+            return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+        }
 	}
 
 	// 首字母转大写
 	public static String toUpperCaseFirstOne(String s) {
 
-		if (Character.isUpperCase(s.charAt(0)))
-			return s;
-		else
-			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+		if (Character.isUpperCase(s.charAt(0))) {
+            return s;
+        } else {
+            return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+        }
 	}
 
 	/**
@@ -37,7 +40,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
 	 * @return
 	 */
 	public static boolean isEmpty(String s) {
-		if (s != null && !s.equals("")) {
+		if (s != null && !"".equals(s)) {
 			return false;
 		}
 		return true;
@@ -213,11 +216,11 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
 	}
 
 	public static boolean isNumericAndDot(String str) {
-		if (str == null || str.trim().equals("")) {
+		if (str == null || "".equals(str.trim())) {
 			return false;
 		}
-		Pattern pattern = Pattern.compile("-?[0-9]+.?[0-9]*([Ee]{1}[0-9]+)?");
-		Matcher isNum = pattern.matcher(str);
+
+		Matcher isNum = PATTERN.matcher(str);
 		if (!isNum.matches()) {
 			return false;
 		}

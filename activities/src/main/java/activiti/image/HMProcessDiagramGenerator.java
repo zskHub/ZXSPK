@@ -38,6 +38,7 @@ public interface HMProcessDiagramGenerator extends ProcessDiagramGenerator{
    * @param annotationFontName override the default annotation font
    * @param customClassLoader provide a custom classloader for retrieving icon images
    */
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, List<String> highLightedFlows,
                               String activityFontName, String labelFontName, String annotationFontName, ClassLoader customClassLoader, double scaleFactor);
 
@@ -53,28 +54,39 @@ public interface HMProcessDiagramGenerator extends ProcessDiagramGenerator{
    * @param highLightedActivities activities to highlight
    * @param highLightedFlows flows to highlight
    */
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, List<String> highLightedFlows);
   
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities,
                               List<String> highLightedFlows, double scaleFactor);
 
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities);
   
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, double scaleFactor);
   
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, String activityFontName, String labelFontName, String annotationFontName, ClassLoader customClassLoader);
   
+  @Override
   InputStream generateDiagram(BpmnModel bpmnModel, String imageType, String activityFontName,
                               String labelFontName, String annotationFontName, ClassLoader customClassLoader, double scaleFactor);
 
+  @Override
   InputStream generatePngDiagram(BpmnModel bpmnModel);
   
+  @Override
   InputStream generatePngDiagram(BpmnModel bpmnModel, double scaleFactor);
 
+  @Override
   InputStream generateJpgDiagram(BpmnModel bpmnModel);
   
+  @Override
   InputStream generateJpgDiagram(BpmnModel bpmnModel, double scaleFactor);
   
+  @Override
   BufferedImage generatePngImage(BpmnModel bpmnModel, double scaleFactor);
 
 }

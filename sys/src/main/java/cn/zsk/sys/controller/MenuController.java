@@ -148,7 +148,7 @@ public class MenuController extends BaseController {
         * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
         * */
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return jsonUtil;
     }
 
@@ -177,7 +177,7 @@ public class MenuController extends BaseController {
          * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
          * */
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return JsonUtil.sucess("保存成功");
     }
 
@@ -217,7 +217,7 @@ public class MenuController extends BaseController {
          * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
          * */
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return json;
 
     }

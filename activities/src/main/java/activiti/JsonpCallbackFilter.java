@@ -15,9 +15,11 @@ import java.util.Map;
 @Slf4j
 public class JsonpCallbackFilter implements Filter {
 
+    @Override
     public void init(FilterConfig fConfig) {
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -25,8 +27,9 @@ public class JsonpCallbackFilter implements Filter {
         Map<String, String[]> parms = httpRequest.getParameterMap();
 
         if (parms.containsKey("callback")) {
-            if (log.isDebugEnabled())
+            if (log.isDebugEnabled()) {
                 log.debug("Wrapping response with JSONP callback '" + parms.get("callback")[0] + "'");
+            }
 
             OutputStream out = httpResponse.getOutputStream();
 
@@ -53,6 +56,7 @@ public class JsonpCallbackFilter implements Filter {
         }
     }
 
+    @Override
     public void destroy() {
     }
 }

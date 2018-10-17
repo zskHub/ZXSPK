@@ -1,3 +1,4 @@
+package org.activiti.image.impl;
 /* Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,7 +12,6 @@
  * limitations under the License.
  */
 
-package org.activiti.image.impl;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -405,8 +405,9 @@ public class DefaultProcessDiagramCanvas {
     g.fill(outerCircle);
 
     g.setPaint(EVENT_BORDER_COLOR);
-    if (isInterrupting == false) 
-      g.setStroke(NON_INTERRUPTING_EVENT_STROKE);
+    if (isInterrupting == false) {
+        g.setStroke(NON_INTERRUPTING_EVENT_STROKE);
+    }
     g.draw(outerCircle);
     g.setStroke(originalStroke);
     g.setPaint(originalPaint);
@@ -489,8 +490,9 @@ public class DefaultProcessDiagramCanvas {
   
   public void drawSequenceflow(int srcX, int srcY, int targetX, int targetY, boolean conditional, boolean highLighted, double scaleFactor) {
     Paint originalPaint = g.getPaint();
-    if (highLighted)
-      g.setPaint(HIGHLIGHT_COLOR);
+    if (highLighted) {
+        g.setPaint(HIGHLIGHT_COLOR);
+    }
 
     Line2D.Double line = new Line2D.Double(srcX, srcY, targetX, targetY);
     g.draw(line);
@@ -500,8 +502,9 @@ public class DefaultProcessDiagramCanvas {
       drawConditionalSequenceFlowIndicator(line, scaleFactor);
     }
 
-    if (highLighted)
-      g.setPaint(originalPaint);
+    if (highLighted) {
+        g.setPaint(originalPaint);
+    }
   }
 
   public void drawAssociation(int[] xPoints, int[] yPoints, AssociationDirection associationDirection, boolean highLighted, double scaleFactor) {
@@ -520,7 +523,7 @@ public class DefaultProcessDiagramCanvas {
     Stroke originalStroke = g.getStroke();
 
     g.setPaint(CONNECTION_COLOR);
-    if (connectionType.equals("association")) {
+    if ("association".equals(connectionType)) {
       g.setStroke(ASSOCIATION_STROKE);
     } else if (highLighted) {
       g.setPaint(HIGHLIGHT_COLOR);
@@ -564,8 +567,9 @@ public class DefaultProcessDiagramCanvas {
 
   public void drawSequenceflowWithoutArrow(int srcX, int srcY, int targetX, int targetY, boolean conditional, boolean highLighted, double scaleFactor) {
     Paint originalPaint = g.getPaint();
-    if (highLighted)
-      g.setPaint(HIGHLIGHT_COLOR);
+    if (highLighted) {
+        g.setPaint(HIGHLIGHT_COLOR);
+    }
 
     Line2D.Double line = new Line2D.Double(srcX, srcY, targetX, targetY);
     g.draw(line);
@@ -574,8 +578,9 @@ public class DefaultProcessDiagramCanvas {
       drawConditionalSequenceFlowIndicator(line, scaleFactor);
     }
 
-    if (highLighted)
-      g.setPaint(originalPaint);
+    if (highLighted) {
+        g.setPaint(originalPaint);
+    }
   }
 
   public void drawArrowHead(Line2D.Double line, double scaleFactor) {
@@ -629,7 +634,9 @@ public class DefaultProcessDiagramCanvas {
   }
 
   public void drawConditionalSequenceFlowIndicator(Line2D.Double line, double scaleFactor) {
-    if (scaleFactor > 1.0) return;
+    if (scaleFactor > 1.0) {
+        return;
+    }
     int horizontal = (int) (CONDITIONAL_INDICATOR_WIDTH * 0.7);
     int halfOfHorizontal = horizontal / 2;
     int halfOfVertical = CONDITIONAL_INDICATOR_WIDTH / 2;
@@ -709,8 +716,9 @@ public class DefaultProcessDiagramCanvas {
 //    g.setPaint(TASK_BOX_COLOR);
     g.setPaint(new Color(255,255,0));
     int arcR = 6;
-    if (thickBorder)
-    	arcR = 3;
+    if (thickBorder) {
+        arcR = 3;
+    }
     
     // shape
     RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, arcR, arcR);

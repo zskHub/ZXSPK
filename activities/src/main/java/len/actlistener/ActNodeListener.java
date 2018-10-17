@@ -48,6 +48,7 @@ public class ActNodeListener implements TaskListener {
                 case AssigneeType.USER_TYPE:
                     delegateTask.addCandidateUser(assignee.getAssignee());
                     break;
+                    default:
             }
         }
     }

@@ -218,8 +218,9 @@ public class MenuServiceImpl extends BaseServiceImpl<SysMenu, String> implements
             sysRoleMenu.setMenuId(sysMenu.getId());
             sysRoleMenu.setRoleId(roleId);
             int count = roleMenuMapper.selectCountByCondition(sysRoleMenu);
-            if (count > 0)
+            if (count > 0) {
                 treeUtil.setChecked(true);
+            }
         }
         for (SysMenu menu : childSysMenu) {
             TreeUtil m = getChildByTree(menu, sysMenus, layer, menu.getId(), roleId);

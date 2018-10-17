@@ -96,11 +96,12 @@ public class RoleController extends BaseController {
             SysRoleMenu sysRoleMenu = new SysRoleMenu();
             sysRoleMenu.setRoleId(sysRole.getId());
 
-            if (menus != null)
+            if (menus != null) {
                 for (String menu : menus) {
                     sysRoleMenu.setMenuId(menu);
                     roleMenuService.insert(sysRoleMenu);
                 }
+            }
             j.setMsg("保存成功");
         } catch (MyException e) {
             j.setMsg("保存失败");
@@ -111,7 +112,7 @@ public class RoleController extends BaseController {
          * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
          * */
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return j;
     }
 
@@ -128,7 +129,7 @@ public class RoleController extends BaseController {
          * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
          * */
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return "system/role/update-role";
     }
 
@@ -154,11 +155,12 @@ public class RoleController extends BaseController {
             for (SysRoleMenu sysRoleMenu1 : menuList) {
                 roleMenuService.deleteByPrimaryKey(sysRoleMenu1);
             }
-            if (menus != null)
+            if (menus != null) {
                 for (String menu : menus) {
                     sysRoleMenu.setMenuId(menu);
                     roleMenuService.insert(sysRoleMenu);
                 }
+            }
             jsonUtil.setFlag(true);
             jsonUtil.setMsg("修改成功");
         } catch (MyException e) {
@@ -166,7 +168,7 @@ public class RoleController extends BaseController {
             e.printStackTrace();
         }
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return jsonUtil;
     }
 
@@ -198,7 +200,7 @@ public class RoleController extends BaseController {
          * 删除用户权限信息，使用户重新加载权限信息，为了触发权限分配方法中的有关菜单项的操作，实现菜单数据的刷新
          * */
         ShiroUtil shiroUtil = new ShiroUtil();
-        shiroUtil.clearAuth();
+        ShiroUtil.clearAuth();
         return j;
     }
 

@@ -45,8 +45,9 @@ public class DataSourceJobThread extends Thread {
             );
             if (jobList.size() == 0) {
                 log.info("---数据库暂无启动的任务---------");
-            } else
+            } else {
                 System.out.println("---任务启动完毕---------");
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
